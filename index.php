@@ -1,15 +1,18 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    if ($email == "fastdomingo@student.hau.edu.ph" && $password == "123456") {
-        echo "<script>alert('Login Successful');</script>";
+    if ($email === "fastdomingo@student.hau.edu.ph" && $password === "123456") {
+        header("Location: menu.php"); 
+        exit();
     } else {
         echo "<script>alert('Invalid Email or Password');</script>";
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -163,9 +166,7 @@ body {
             FORGOT PASSWORD?
         </a>
 
-        <button type="button" class="login-btn" onclick="window.location.href='menu.php'">
-        LOG IN
-        </button>
+        <button type="submit" class="login-btn">LOG IN</button>
 
 
     </form>

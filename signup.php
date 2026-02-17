@@ -1,18 +1,17 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $fname = $_POST['fname'];
-    $lname = $_POST['lname'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $terms = isset($_POST['terms']);
 
-    if ($terms) {
-        echo "<script>alert('Account Created Successfully!');</script>";
+    $password = $_POST['password'];
+
+    if (strlen($password) >= 6) {
+        header("Location: menu.php"); 
+        exit();
     } else {
-        echo "<script>alert('You must agree to Terms & Conditions');</script>";
+        echo "<script>alert('Password must be at least 6 characters');</script>";
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -209,9 +208,7 @@ input[type="password"] {
                 <label>I agree to the <a href="https://www.hau.edu.ph/services/newstudent-guide">Terms & Conditions</a></label>
             </div>
 
-        <button type="button" class="signup-btn" onclick="window.location.href='menu.php'">
-        CREATE ACCOUNT
-        </button>
+            <button type="submit" class="signup-btn">SIGN UP</button>
 
         </form>
 

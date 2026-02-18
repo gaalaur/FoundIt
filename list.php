@@ -1,11 +1,24 @@
-<?php 
+<?php  
 $success = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    if(isset($_FILES['image']) && $_FILES['image']['error'] == 0){
+
+        $targetDir = "uploads/";
+        if(!is_dir($targetDir)){
+            mkdir($targetDir, 0777, true);
+        }
+
+        $fileName = time() . "_" . basename($_FILES["image"]["name"]);
+        $targetFile = $targetDir . $fileName;
+
+        move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile);
+    }
+
     $success = "Item Posted Successfully!";
 }
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +36,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 body{
     background:#f2f2f2;
-    margin:0;
 }
 
 /* HEADER */
@@ -48,9 +60,7 @@ header{
 .hamburger{
     width:28px;
     cursor:pointer;
-    z-index:1100;
 }
-
 .hamburger div{
     height:4px;
     background:#0b3d70;
@@ -70,7 +80,6 @@ header{
     z-index:2000;
     overflow-y:auto;
 }
-
 .sidebar.active{
     right:0;
 }
@@ -85,7 +94,6 @@ header{
     transition:0.3s;
     z-index:1500;
 }
-
 .overlay.active{
     opacity:1;
     visibility:visible;
@@ -99,28 +107,23 @@ header{
     color:white;
     position:relative;
 }
-
 .profile-header::after{
     content:"";
     position:absolute;
     inset:0;
     background:rgba(0,0,0,0.5);
 }
-
 .profile-content{
     position:relative;
     z-index:2;
 }
-
 .profile-content a{
     text-decoration:none;
     color:white;
 }
-
 .profile-content a:visited{
     color:white;
 }
-
 .profile-pic{
     width:70px;
     height:70px;
@@ -128,12 +131,10 @@ header{
     object-fit:cover;
     margin-bottom:10px;
 }
-
 .profile-name{
     font-weight:bold;
     font-size:16px;
 }
-
 .profile-email{
     font-size:13px;
 }
@@ -148,12 +149,10 @@ header{
     text-decoration:none;
     border-bottom:1px solid #ddd;
 }
-
 .menu-item img{
     width:25px;
     margin-right:15px;
 }
-
 .menu-item:hover{
     background:#e6e6e6;
 }
@@ -162,29 +161,30 @@ header{
 h1{
     text-align:center;
     color:#0b3d70;
-    margin-top:110px;
+    margin-top:130px;
     margin-bottom:20px;
+}
+
+/* CONTAINER */
+.container{
+    max-width:600px;
+    margin:0 auto 60px auto;
+    padding:20px;
 }
 
 /* SECTION TITLE */
 .section-title{
     background:#0b3d70;
     color:white;
-    padding:10px 15px;
+    padding:12px 15px;
     font-weight:bold;
-    margin-top:20px;
+    margin-top:25px;
 }
 
-/* FORM */
-.container{
-    padding:20px;
-    max-width:600px;
-    margin:0 auto 40px auto;
-}
-
+/* INPUT */
 input{
     width:100%;
-    padding:10px;
+    padding:12px;
     border:none;
     border-bottom:2px solid #ccc;
     margin-bottom:20px;
@@ -196,35 +196,26 @@ input{
 .drag-area{
     border:2px dashed #999;
     border-radius:12px;
-    padding:25px;
+    padding:30px;
     text-align:center;
     margin-bottom:20px;
     background:#fafafa;
+    cursor:pointer;
+    transition:0.3s;
 }
-
+.drag-area:hover{
+    background:#e6f2ff;
+    border-color:#0b3d70;
+}
 .drag-area img{
-    width:60px;
+    width:70px;
     margin-bottom:10px;
 }
-
-.drag-area p{
-    font-size:14px;
-    color:#333;
-}
-
-.drag-area a{
+.browse{
     color:#0b3d70;
     font-weight:bold;
     text-decoration:underline;
-}
-
-/* ANSWERS */
-.answer{
-    background:#e6e6e6;
-    padding:10px;
-    margin-bottom:15px;
-    border-radius:4px;
-    color:green;
+    cursor:pointer;
 }
 
 /* BUTTON */
@@ -232,18 +223,18 @@ button{
     width:100%;
     background:#0b3d70;
     color:white;
-    padding:12px;
+    padding:14px;
     border:none;
-    border-radius:4px;
+    border-radius:6px;
     font-weight:bold;
     cursor:pointer;
+    margin-top:15px;
 }
-
-/* SUCCESS */
 .success{
     color:green;
     text-align:center;
-    margin-bottom:10px;
+    margin-bottom:15px;
+    font-weight:bold;
 }
 </style>
 </head>
@@ -266,17 +257,17 @@ button{
     <div class="profile-header">
         <div class="profile-content">
             <a href="menu.php">
-                <img src="image/user.png" class="profile-pic" alt="Profile">
+                <img src="image/user.png" class="profile-pic">
                 <div class="profile-name">Francine Panganiban</div>
                 <div class="profile-email">fastdomingo@student.hau.edu.ph</div>
             </a>
         </div>
     </div>
 
-    <a href="menu.php" class="menu-item"><img src="image/home.png"> Home</a>
-    <a href="lost.php" class="menu-item"><img src="image/lost.png"> Lost</a>
+    <a href="home.php" class="menu-item"><img src="image/home.png"> Home</a>
+    <a href="browse.php" class="menu-item"><img src="image/lost.png"> Browse</a>
     <a href="list.php" class="menu-item"><img src="image/list.png"> List</a>
-    <a href="found.php" class="menu-item"><img src="image/found.png"> Found</a>
+    <a href="claim.php" class="menu-item"><img src="image/found.png"> Claim</a>
     <a href="profile.php" class="menu-item"><img src="image/profile.png"> Profile</a>
     <a href="contactus.php" class="menu-item"><img src="image/contact.png"> Contact Us</a>
 
@@ -301,24 +292,24 @@ button{
 
 <p><strong>Upload Image (Optional)</strong></p>
 
-<div class="drag-area">
-    <img src="image/drag.png" alt="Drag Icon">
-    <p><strong>Drag & drop images, videos, or any file!</strong></p>
-    <p>or <a href="#">browse files</a> on your computer</p>
+<div class="drag-area" id="dragArea">
+    <input type="file" name="image" id="fileInput" hidden accept="image/*">
+    <img src="image/drag.png" alt="Drag Icon" id="previewImage">
+    <p><strong>Drag & drop images, or click to upload</strong></p>
+    <p>or <span class="browse">browse files</span> on your computer</p>
 </div>
 
 <div class="section-title">Hidden Verification</div>
 
 <p>Question 1: What is the color of the wallet?</p>
-<div class="answer">Answer: Black</div>
+<input type="text" name="answer1" required>
 
 <p>Question 2: What brand is the wallet?</p>
-<div class="answer">Answer: CLN</div>
+<input type="text" name="answer2" required>
 
 <button type="submit">Post</button>
 
 </form>
-
 </div>
 
 <script>
@@ -326,6 +317,24 @@ function toggleMenu(){
     document.getElementById("sidebar").classList.toggle("active");
     document.getElementById("overlay").classList.toggle("active");
 }
+
+/* DRAG FUNCTION */
+const dragArea = document.getElementById("dragArea");
+const fileInput = document.getElementById("fileInput");
+const previewImage = document.getElementById("previewImage");
+
+dragArea.addEventListener("click", () => fileInput.click());
+
+fileInput.addEventListener("change", function(){
+    const file = this.files[0];
+    if(file){
+        const reader = new FileReader();
+        reader.onload = function(e){
+            previewImage.src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+    }
+});
 </script>
 
 </body>

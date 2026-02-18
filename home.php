@@ -189,6 +189,7 @@ header{
 <body>
 
 <header>
+    <img src="imagelogo.png" class="logo">
     <div class="hamburger" onclick="toggleMenu()">
         <div></div>
         <div></div>
@@ -213,20 +214,24 @@ header{
         <img src="image/home.png"> Home
     </a>
 
-    <a href="lost.php" class="menu-item">
-        <img src="image/lost.png"> Lost
+    <a href="browse.php" class="menu-item">
+        <img src="image/lost.png"> Browse
     </a>
 
     <a href="list.php" class="menu-item">
         <img src="image/list.png"> List
     </a>
 
-    <a href="found.php" class="menu-item">
-        <img src="image/found.png"> Found
+    <a href="claim.php" class="menu-item">
+        <img src="image/found.png"> Claim
     </a>
 
     <a href="profile.php" class="menu-item">
         <img src="image/profile.png"> Profile
+    </a>
+
+    <a href="contactus.php" class="menu-item">
+        <img src="image/contact.png"> Contact Us
     </a>
 
 </div>
